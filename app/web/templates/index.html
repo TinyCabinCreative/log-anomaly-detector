@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Log Anomaly Detector</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+
+<body>
+
+    <div class="container">
+        <header>
+            <h1>🛡️ Log Anomaly Detector</h1>
+            <p class="subtitle">Mini SIEM · Rule-Based Detection</p>
+        </header>
+
+        <section class="summary">
+            <div class="card">
+                <h3>Total Events</h3>
+                <span>{{ report.total_events }}</span>
+            </div>
+
+            <div class="card">
+                <h3>Alerts</h3>
+                <span>{{ report.alerts | length }}</span>
+            </div>
+        </section>
+
+        <section class="alerts">
+            <h2>Detected Alerts</h2>
+
+            {% if report.alerts %}
+            <table>
+                <thead>
+                    <tr>
+                        <th>Type</th>
+                        <th>Source IP</th>
+                        <th>Failures</th>
+                        <th>Severity</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for alert in report.alerts %}
+                    <tr class="severity-{{ alert.severity }}">
+                        <td>{{ alert.alert_type }}</td>
+                        <td>{{ alert.source_ip }}</td>
+                        <td>{{ alert.failure_count }}</td>
+                        <td>{{ alert.severity }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+            {% else %}
+            <p class="no-alerts">No suspicious activity detected.</p>
+            {% endif %}
+        </section>
+
+        <footer>
+            Hackergenics · Detection Engineering Demo
+        </footer>
+    </div>
+
+</body>
+
+</html>
