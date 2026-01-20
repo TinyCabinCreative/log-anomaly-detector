@@ -1,5 +1,8 @@
 Log Anomaly Detector
 
+![image of Log Anomaly Detector Dashboard
+](image.png)
+
 A Mini SIEM Component
 
 Overview
